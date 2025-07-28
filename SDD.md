@@ -1,6 +1,6 @@
 # Spec-Driven Development Workflow
 
-This page illustrates the structured execution flow of spec-driven development when using agentic development tools. It separates planning and execution stages to enhance clarity, maintainability, and traceability in the software development lifecycle.
+This article illustrates the structured execution flow of **Specification Driven Development (SDD)** when using agentic development tools. It separates planning and execution stages to enhance clarity, maintainability, and traceability in the software development lifecycle.
 
 ## Workflow Overview
 

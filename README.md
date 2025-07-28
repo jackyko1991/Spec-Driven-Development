@@ -100,7 +100,7 @@ The prompts for each mode are essential for guiding the AI.
 3.  Choose `Global` for the save location or `Project-specific` for local use.
 4.  For `Role Definition`, copy the corresponding prompts from the links above.
 5.  For `Short description (for humans)`, copy the description from the header of the prompt files.
-6.  Leave `When to Use`, `Available Tools`, and `Custom Instructions` unchanged.
+6.  For `When to Use`, copy the `when_to_use` guidance from the header of the prompt files. Leave `Available Tools` and `Custom Instructions` unchanged.
 7.  Save the new mode.
 8.  Switch to the corresponding mode and use a prompt like: `Create project guidance for a Python library project.`
 

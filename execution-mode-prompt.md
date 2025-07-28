@@ -54,7 +54,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
         *   **If verification is manual or no test exists:**
             *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
             *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
-    *   **Rebuild Documentation:** After a task is marked as complete, run the documentation build command defined in `@.ai-rules/tech.md`.
+    *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
     *   **Report and Stop/Continue:**
         *   **Normal Mode:** Report your summary and the request for verification, then STOP.
         *   **Autonomous Mode:** Report your summary and continue to the next task.

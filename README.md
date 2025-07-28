@@ -1,5 +1,7 @@
 # 🌟 Spec-Driven Development (SDD) Workflow
 
+[繁體中文](README.zh-Hant.md)
+
 This document outlines the **Specification-Driven Development (SDD)** workflow, a structured approach for building software with agentic development tools like Claude Code, AWS Kiro, and Roo Code. SDD divides the development process into three distinct phases: **Steering Architect**, **Planning**, and **Execution**. This separation of concerns promotes rapid, high-quality code generation with enhanced clarity, maintainability, and traceability.
 
 ---
@@ -10,9 +12,9 @@ The SDD workflow consists of three sequential phases:
 
 1.  **🧭 Steering Architect Mode**: Define the project's high-level rules, product vision, technology stack, and overall structure.
 2.  **🗂️ Planning Mode**: Collaboratively create detailed feature specifications, including requirements, design documents, and actionable tasks.
-3.  **⚡ Execution Mode**: Implement the defined tasks atomically, verify their correctness, and incrementally update the codebase.
+3.  **⚡ Execution Mode**: Implement the defined tasks atomically, verify their correctness, and incrementally update the codebase and documentations.
 
-Each phase is supported by specialized agentic tools and context files, which enforce discipline and minimize ambiguity throughout the development lifecycle.
+Each phase is supported by specialized agentic tools and context files, which enforce coding discipline and minimize ambiguity throughout the development lifecycle.
 
 ---
 
@@ -54,18 +56,19 @@ Engage in a dialogue with the AI agent to refine and clarify ideas. The agent sh
 
 ## 3. ⚡ Execution Mode
 
-In Execution Mode, the agent functions as a focused coding assistant. It systematically reads the `tasks.md` file and generates incremental code changes with a strong emphasis on **Test-Driven Development (TDD)** to ensure functionality and reliability. The agent adheres to agile DevOps practices, delivering small, verifiable improvements that align with project requirements and maintain high code quality.
+In Execution Mode, the agent functions as a focused coding assistant. It systematically reads the `tasks.md` file and generates incremental code changes with a strong emphasis on **Test-Driven Development (TDD)** to ensure functionality and reliability. The agent adheres to agile DevOps practices, delivering small, verifiable improvements that align with project requirements and maintain high code quality. It also handles documentation updates, ensuring that code and documentation remain synchronized.
 
 ### Detailed Workflow:
 1.  **Identify Task**: Open `tasks.md` and select the first unchecked (`[ ]`) task.
 2.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
-3.  **Implement**: Apply a single, atomic code change to address only the current task.
+3.  **Implement & Document**: Apply a single, atomic code change to address only the current task. As you code, update relevant documentation (e.g., inline comments, user guides, API docs).
 4.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task.
 5.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" to ensure consistency.
 6.  **Update State**:
     - If an automated test passes, mark the task as complete: `[x]`.
     - If verification is manual or no test exists, summarize the changes and ask the user to confirm functionality (unless running in autonomous mode). Upon confirmation, mark the task as `[x]`.
     - Summarize all changes in a development log, such as `./dev-log/<yyyymmdd>.md`.
+    - After a major tasks complete, run any documentation build commands if applicable.
 
 ### Parallel Feature Development:
 Features can be developed in parallel, while tasks within each feature are executed sequentially. This enables efficient collaboration and faster delivery. For more on asynchronous local coding workflows, see [Asynchronous Coding on Local with Git Worktree](https://gist.github.com/jackyko1991/deb71662444b021c28f38e22c40be53d).

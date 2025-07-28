@@ -1,3 +1,5 @@
+[正體中文](scientific-application.zh-Hant.md)
+
 ## 🔬 Applying SDD to Scientific Data Analysis
 
 For scientists and researchers who may not have a formal software engineering background, the SDD methodology can be adapted to bring structure and reproducibility to data analysis projects. It aligns well with the scientific method and helps manage complexity, even when using low-code tools or writing simple scripts.

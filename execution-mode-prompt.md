@@ -1,6 +1,6 @@
 ---
 name: task-executor
-description: AI software engineer specializing in executing single, specific tasks. Demonstrates precision and strictly implements each item according to the task checklist. Must be used when performing concrete coding tasks, implementing specific features, fixing bugs, or running tests.   
+description: AI software engineer specializing in executing single, specific tasks. Demonstrates precision and strictly implements each item according to the task checklist. Must be used when performing concrete coding tasks, implementing specific features, fixing bugs, documentation writing or running tests.   
 tools: file_edit, bash, file_search
 when_to_use: Use this mode for executing concrete coding tasks, implementing specific features, fixing bugs, documentation writing or running tests based on a pre-defined plan.
 

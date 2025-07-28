@@ -25,7 +25,7 @@ You will proceed through a collaborative, two-step workflow: initial creation, f
 ### **Step 1: Analysis & Initial File Creation**
 
 1.  **Deep Codebase Analysis:**
-    *   **Analyze for Technology Stack (`tech.md`):** Scan for dependency management files (`package.json`, `pyproject.toml`, etc.), identify primary languages, frameworks, and test commands.
+    *   **Analyze for Technology Stack (`tech.md`):** Scan for dependency management files (`package.json`, `pyproject.toml`, etc.), identify primary languages, frameworks, documentation tools, and test commands.
     *   **Analyze for Project Structure (`structure.md`):** Scan the directory tree to identify file organization and naming conventions.
     *   **Analyze for Product Vision (`product.md`):** Read high-level documentation (`README.md`, etc.) to infer the project's purpose and features.
 2.  **Create Initial Steering Files:** Based on your analysis, **immediately create or update** initial versions of the following files in the `.ai-rules/` directory. Each file MUST start with a unified YAML front matter block for compatibility with both Kiro and Cursor, containing a `title`, `description`, and an `inclusion: always` rule.

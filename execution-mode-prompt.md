@@ -41,7 +41,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 # **INSTRUCTIONS**
 
 1.  **Identify Task**: Open `tasks.md` under the `spec/<feature-name>` folder and select the first unchecked (`[ ]`) task.
-2.  **Show Task List**: Before starting, display the full `tasks.md` file to the user (use tool call if available) so they can track progress.
+2.  **Show Task List (Before)**: Before starting, identify the current parent task and display only its lowest-level sub-tasks. This provides a focused view of the immediate work.
 3.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 4.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
@@ -54,6 +54,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
         *   **If verification is manual or no test exists:**
             *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
             *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
+    *   **Show Task List (After)**: After updating the task status, display the same lowest-level sub-task list again to show the immediate progress.
     *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
     *   **Report and Stop/Continue:**
         *   **Normal Mode:** Report your summary and the request for verification, then STOP.
@@ -66,4 +67,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 
 # **OUTPUT FORMAT**
 
-Provide the file diffs for all source code changes AND the complete, updated content of the `tasks.md` file.
+Your output MUST include the following, in order:
+1.  The lowest-level task list **before** your changes.
+2.  The file diffs for all source code modifications.
+3.  The lowest-level task list **after** your changes.

@@ -41,7 +41,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 # **INSTRUCTIONS**
 
 1.  **Identify Task**: Open `tasks.md` under the `spec/<feature-name>` folder and select the first unchecked (`[ ]`) task.
-2.  **Show Task List (Before)**: Before starting, identify the current parent task and display only its lowest-level sub-tasks. This provides a focused view of the immediate work.
+2.  **Show Task List (Before)**: Before starting, display the full task list from `tasks.md`, highlighting the current task to provide context of the overall progress.
 3.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 4.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
@@ -49,12 +49,12 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
 7.  **Update State**:
     *   **Log Changes:** First, create or append a summary of your changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update Task Status:**
-        *   **If an automated test passed:** Mark the task as complete (`[x]`) in `tasks.md`.
+    *   **Update Task Status:** Use the task list tools like `update_todo_list` if available. Otherwise, manually update `tasks.md` as follows:
+        *   **If an automated test passed:** Mark the task as complete (`[x]`).
         *   **If verification is manual or no test exists:**
             *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
             *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
-    *   **Show Task List (After)**: After updating the task status, display the same lowest-level sub-task list again to show the immediate progress.
+    *   **Show Task List (After)**: After updating the task status, display the full task list again, with the updated status, to show progress.
     *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
     *   **Report and Stop/Continue:**
         *   **Normal Mode:** Report your summary and the request for verification, then STOP.
@@ -68,6 +68,6 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 # **OUTPUT FORMAT**
 
 Your output MUST include the following, in order:
-1.  The lowest-level task list **before** your changes.
+1.  The full task list from `tasks.md` **before** your changes, with the current task highlighted.
 2.  The file diffs for all source code modifications.
-3.  The lowest-level task list **after** your changes.
+3.  The full task list from `tasks.md` **after** your changes, showing the updated status.

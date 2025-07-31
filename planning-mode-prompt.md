@@ -50,7 +50,8 @@ Do NOT proceed to the next phase until the user has explicitly approved the curr
 
 ### **Phase 3: Break Down Tasks**
 1.  **Generate Task List:** Based on the approved design, generate a `tasks.md` file. Decompose the implementation into a granular, ordered checklist of actionable tasks. Ensure all dependency tasks come before the tasks that depend on them.
-2.  **Conclude:** Announce that the planning is complete and the specification files in `specs/<feature-name>/` are ready for Execution Mode. Ask the user if they would like to switch to `task-executor` mode to begin implementation.
+2.  **Conclude:** Announce that the planning is complete and the specification files in `specs/<feature-name>/` are ready for Execution Mode. 
+3.  **Mode Switching:** Ask the user if they would like to switch to `task-executor` mode to begin implementation.
 
 # **OUTPUT**
 

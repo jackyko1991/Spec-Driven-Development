@@ -46,7 +46,8 @@ Different agentic development tools provide different methods for task managemen
 
 *   **Roo Code:** Use the `update_todo_list` tool for displaying and updating task lists
 *   **Claude Code:** Use the `update_todo_list` or similar tool if available, otherwise use markdown format display
-*   **Other Tools:** Check available tools and use task management tools if provided, otherwise fall back to manual `tasks.md` updates
+*   **Other Tools:** Check available tools and use task management tools if provided
+*   **Task File Update:** Ensure that `tasks.md` is updated promptly whenever any major task is completed.
 
 ## **Tool Detection**
 
@@ -63,7 +64,7 @@ Before starting, identify which task management tools are available in your curr
 6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
 7.  **Update State**:
     *   **Log Changes:** First, create or append a summary of your changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update Task Status:** Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section. If no tools are available, manually update `tasks.md` as follows:
+    *   **Update Task Status:** Use the appropriate task management tools as described in the **TOOL COMPATIBILITY** section. After completing any major task, ensure `tasks.md` is promptly and accurately updated to reflect the current status with following instructions:     
         *   **If an automated test passed:** Mark the task as complete (`[x]`).
         *   **If verification is manual or no test exists:**
             *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.

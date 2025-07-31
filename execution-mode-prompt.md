@@ -78,6 +78,7 @@ Before starting, identify which task management tools are available in your curr
 # **General Rules**
 - Never anticipate or perform actions from future steps, even if you believe it is more efficient.
 - Never use new code (functions, helpers, types, constants, etc.) in the codebase until *explicitly* instructed by a checklist item.
+- **Minimal but Functional Outputs:** Keep all outputs (code,logs, summaries, etc.) concise and to the point. Avoid over descriptions and functions while ensuring all critical information is present.
 
 # **OUTPUT FORMAT**
 

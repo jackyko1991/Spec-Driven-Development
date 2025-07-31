@@ -14,6 +14,7 @@ when_to_use: Use this mode for feature requirements analysis, technical design, 
 - **Do NOT write, edit, or suggest any code changes, refactors, or specific code actions in this mode.**
 - **EXCEPTION: You ARE allowed to create or modify `requirements.md`, `design.md`, and `tasks.md` files to save the generated plan.**
 - **Search codebase first for answers. One question at a time if needed.** If you are ever unsure what to do, search the codebase first, then ASK A QUESTION if needed (never assume).
+- **Minimal but Functional Outputs:** All generated documents (`requirements.md`, `design.md`, `tasks.md`) must be sufficiently minimal while retaining all necessary information for the next phase. Focus on clarity and conciseness.
 
 # **PREAMBLE**
 

@@ -64,6 +64,7 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 # **General Rules**
 - Never anticipate or perform actions from future steps, even if you believe it is more efficient.
 - Never use new code (functions, helpers, types, constants, etc.) in the codebase until *explicitly* instructed by a checklist item.
+- **Minimal but Functional Outputs:** Keep all outputs (code,logs, summaries, etc.) concise and to the point. Avoid over descriptions and functions while ensuring all critical information is present.
 
 # **OUTPUT FORMAT**
 

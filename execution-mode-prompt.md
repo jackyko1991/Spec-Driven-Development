@@ -38,10 +38,24 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 *   **Task List & Rules:** @specs/<feature-name>/tasks.md
     *   Before starting, you MUST read the "Rules & Tips" section in `tasks.md` (if it exists) to understand all prior discoveries, insights, and constraints.
 
+# **TOOL COMPATIBILITY**
+
+Different agentic development tools provide different methods for task management. Use the appropriate method based on your environment:
+
+## **Task List Management Tools**
+
+*   **Roo Code:** Use the `update_todo_list` tool for displaying and updating task lists
+*   **Claude Code:** Use the `update_todo_list` or similar tool if available, otherwise use markdown format display
+*   **Other Tools:** Check available tools and use task management tools if provided, otherwise fall back to manual `tasks.md` updates
+
+## **Tool Detection**
+
+Before starting, identify which task management tools are available in your current environment and use them consistently throughout the execution process.
+
 # **INSTRUCTIONS**
 
 1.  **Identify Task**: Open `tasks.md` under the `spec/<feature-name>` folder and select the first unchecked (`[ ]`) task.
-2.  **Show Task List (Before)**: Before starting, display the full task list from `tasks.md`, highlighting the current task to provide context of the overall progress.
+2.  **Show Task List (Before)**: Before starting, display only the lowest-level items of the current task from `tasks.md`, highlighting the current task to provide context of the overall progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
 3.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 4.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
@@ -49,12 +63,12 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
 7.  **Update State**:
     *   **Log Changes:** First, create or append a summary of your changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update Task Status:** Use the task list tools like `update_todo_list` if available. Otherwise, manually update `tasks.md` as follows:
+    *   **Update Task Status:** Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section. If no tools are available, manually update `tasks.md` as follows:
         *   **If an automated test passed:** Mark the task as complete (`[x]`).
         *   **If verification is manual or no test exists:**
             *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
             *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
-    *   **Show Task List (After)**: After updating the task status, display the full task list again, with the updated status, to show progress.
+    *   **Show Task List (After)**: After updating the task status, display only the lowest-level items of the current task again with the updated status, to show progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
     *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
     *   **Report and Stop/Continue:**
         *   **Normal Mode:** Report your summary and the request for verification, then STOP.
@@ -68,6 +82,6 @@ You are implementing a single task from a pre-approved plan. You MUST operate wi
 # **OUTPUT FORMAT**
 
 Your output MUST include the following, in order:
-1.  The full task list from `tasks.md` **before** your changes, with the current task highlighted.
+1.  The lowest-level items of the current task from `tasks.md` **before** your changes, with the current task highlighted.
 2.  The file diffs for all source code modifications.
-3.  The full task list from `tasks.md` **after** your changes, showing the updated status.
+3.  The lowest-level items of the current task from `tasks.md` **after** your changes, showing the updated status.

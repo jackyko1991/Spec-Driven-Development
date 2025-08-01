@@ -94,12 +94,11 @@ Before starting, identify which task management tools are available in your curr
     *   Ensure sandbox isolation is maintained according to the configuration.
 6.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
-<<<<<<< HEAD
 5.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task. For automated tests, implement and run them using the testing frameworks specified in `@.ai-rules/tech.md`. For manual tests, STOP and ask the user for verification.
 6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
 7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.
     *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration.
-    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`.
+    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`. 
     *   **Update Task Status:**
         *   If the `update_todo_list` tool is available, call it with the lowest level of updated task list from `tasks.md`.
         *   If the tool is not available, manually edit `specs/<feature-name>/tasks.md` to change the current task from `[ ]` to `[-]` (in-progress) and display the lowest-level items of the current task from the updated file, showing the new `[-]` status.
@@ -122,34 +121,12 @@ Before starting, identify which task management tools are available in your curr
         *   **Validation:** Ensure the merged code maintains functionality in the main environment.
         *   **Cleanup:** Clean up sandbox-specific artifacts that shouldn't persist in the main codebase.
         *   **Documentation Update:** Update any documentation that references the sandbox workflow completion.
-8.  **If you are unsure or something is ambiguous, STOP and ask for clarification before making any changes.**
-=======
-    *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration
-7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.
-    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update `tasks.md` Manually:** Manually edit `specs/<feature-name>/tasks.md` to change the current task from `[ ]` to `[-]` (in-progress). This ensures the file is always the source of truth.
-    *   **Update Task Tool & Display Progress:**
-        *   If the `update_todo_list` tool is available, call it with the full, updated task list from `tasks.md`.
-        *   If the tool is not available, display the lowest-level items of the current task from the updated `tasks.md` file, showing the new `[-]` status.
-    *   **Handoff for Verification**: Based on the plan, proceed with the appropriate verification step.
-        *   **TDD Workflow**: If unit testing is configured, switch to `tester` mode. Announce:
-            > "Implementation complete. Marking task as in-progress and switching to `tester` mode to run unit tests."
-        *   **Manual/UI Workflow**: If the task requires manual or visual verification, ask the user for confirmation before proceeding. Announce:
-            > "The task is implemented and marked as in-progress. Please verify the changes. If you find a bug, we can switch to the `debugger` to resolve it."
-            >
-            > **Next Steps:**
-            > 1. Looks good, perform code merging and continue next task(s).
-            > 2. I found a bug, switch to `debugger`.
-8.  **Sandbox Integration (If Applicable)**: If sandbox development was used and the task is complete:
-    *   **Code Merge:** Merge the confirmed code changes from the sandbox back to the main codebase
-    *   **Validation:** Ensure the merged code maintains functionality in the main environment
-    *   **Cleanup:** Clean up sandbox-specific artifacts that shouldn't persist in the main codebase
-    *   **Documentation Update:** Update any documentation that references the sandbox workflow completion
-9.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
-10. **Report and Stop/Continue:**
-    *   **Normal Mode:** Report your summary and the handoff announcement, then STOP.
-    *   **Autonomous Mode:** Report your summary and continue to the next task (if applicable to the new mode).
->>>>>>> 69390b58783dcece700707e6429ad12f8dabb71a
+        *   **Log Changes (Sandbox Mode):** When working in sandbox mode, log all code changes and integration steps in a dedicated sandbox log file (e.g., `.sandbox/dev-log/<yyyymmdd>-<feature-name>.md`). This log should include:
+            *   A summary of the changes made within the sandbox.
+            *   Any issues encountered and how they were resolved.
+            *   Steps taken during code merge and validation.
+            *   References to related documentation updates.
+            *   After merging, append a summary of the integration to the main development log at `./dev-log/<yyyymmdd>.md` for project-wide visibility.
 8.  **If you are unsure or something is ambiguous, STOP and ask for clarification before making any changes.**
 
 # **General Rules**

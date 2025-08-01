@@ -2,7 +2,7 @@
 
 [繁體中文](README.zh-Hant.md)
 
-This document outlines the **Specification-Driven Development (SDD)** workflow, a structured approach for building software with agentic development tools like Claude Code, AWS Kiro, and Roo Code. SDD divides the development process into three distinct phases: **Steering Architect**, **Planning**, and **Execution**. This separation of concerns promotes rapid, high-quality code generation with enhanced clarity, maintainability, and traceability.
+This document introduces the **Specification-Driven Development (SDD)** workflow—a structured methodology for building software using agentic tools such as Claude Code, AWS Kiro, and Roo Code. SDD organizes development into five clear phases: **Steering Architect**, **Planning**, **Execution**, **Tester**, and **Debugger**. This separation of concerns accelerates high-quality code generation, improves clarity, and ensures maintainability and traceability.
 
 ---
 
@@ -27,7 +27,7 @@ The SDD workflow consists of three sequential phases:
 
 1.  **🧭 Steering Architect Mode**: Define the project's high-level rules, product vision, technology stack, and overall structure.
 2.  **🗂️ Planning Mode**: Collaboratively create detailed feature specifications, including requirements, design documents, and actionable tasks.
-3.  **⚡ Execution Mode**: Implement the defined tasks atomically, verify their correctness, and incrementally update the codebase and documentations.
+3.  **⚡ Execution Mode**: Implement tasks atomically, verify correctness, and incrementally update the codebase and documentation.
 4.  **🧪 Tester Mode**: Write and run tests to verify feature correctness after implementation.
 5.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs in an isolated, unified sandbox environment.
 
@@ -53,7 +53,7 @@ graph LR
 **Responsibilities:**
 - Analyze the existing codebase (if any) to establish a baseline.
 - Generate or update foundational rule files (e.g., in an `.ai-rules/` directory).
-- Document the product vision, technology stack, folder structure, and project-level architectural rules. This now includes establishing conventions for unit testing and a unified development sandbox.
+- Document the product vision, technology stack, folder structure, and project-level architectural rules, including conventions for unit testing and a unified development sandbox.
 
 **Artifacts:**
 - `.ai-rules/product.md`: Describes the product's purpose, features, and target audience.
@@ -62,7 +62,7 @@ graph LR
 
 ### Development and Debugging Sandboxes
 
-To ensure a clean and isolated development environment, the Steering Architect establishes conventions for using a unified sandbox. A sandbox is a temporary, isolated environment where new features can be developed or bugs can be fixed without affecting the main codebase.
+To ensure a clean and isolated development environment, the Steering Architect establishes conventions for a unified sandbox—a temporary, isolated space for developing new features or fixing bugs without impacting the main codebase.
 
 All isolated work, whether for new features or bug fixes, takes place in the `.sandbox/` directory. The method for creating this sandbox can be configured:
 -   **Directory Copy**: A minimal copy of only the necessary files for the task.
@@ -90,7 +90,7 @@ specs/
 ```
 
 **Collaborative Refinement:**
-Engage in a dialogue with the AI agent to refine and clarify ideas. The agent should ask targeted questions (typically 3-5 per feature) to move from broad concepts to precise specifications, ensuring the resulting spec files are comprehensive and clear.
+Engage in dialogue with the AI agent to refine and clarify ideas. The agent should ask targeted questions (typically 3–5 per feature) to move from broad concepts to precise specifications, ensuring spec files are comprehensive and clear.
 
 ---
 
@@ -104,17 +104,17 @@ In Execution Mode, the agent implements tasks and then hands off for verificatio
 ### Detailed Workflow:
 1.  **Identify Task**: Open `tasks.md` and select the first unchecked (`[ ]`) task.
 2.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
-3.  **Implement & Document**: Apply a single, atomic code change to address only the current task. As you code, update relevant documentation (e.g., inline comments, user guides, API docs).
+3.  **Implement & Document**: Apply a single, atomic code change for the current task. Update relevant documentation as you code (e.g., inline comments, user guides, API docs).
 4.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task.
 5.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" to ensure consistency.
 6.  **Update State**:
     - If an automated test passes, mark the task as complete: `[x]`.
     - If verification is manual or no test exists, summarize the changes and ask the user to confirm functionality (unless running in autonomous mode). Upon confirmation, mark the task as `[x]`.
     - Summarize all changes in a development log, such as `./dev-log/<yyyymmdd>.md`.
-    - After a major tasks complete, run any documentation build commands if applicable.
+    - After major tasks are complete, run any documentation build commands if applicable.
 
 ### Parallel Feature Development:
-Features can be developed in parallel, while tasks within each feature are executed sequentially. This enables efficient collaboration and faster delivery. For more on asynchronous local coding workflows, see [Asynchronous Coding on Local with Git Worktree](https://gist.github.com/jackyko1991/deb71662444b021c28f38e22c40be53d).
+Features can be developed in parallel, while tasks within each feature are executed sequentially. This enables efficient collaboration and faster delivery. For details on asynchronous local coding workflows, see [Asynchronous Coding on Local with Git Worktree](https://gist.github.com/jackyko1991/deb71662444b021c28f38e22c40be53d).
 
 ---
 
@@ -215,7 +215,7 @@ For guidance on adapting the SDD methodology for scientific data analysis and re
 
 ## Conclusion
 
-This streamlined tutorial provides a robust framework for structured, traceable, and maintainable software development. By leveraging agentic tools within the SDD methodology, teams can build complex systems with greater speed, discipline, and quality.
+This guide provides a robust framework for structured, traceable, and maintainable software development. By leveraging agentic tools within the SDD methodology, teams can build complex systems with greater speed, discipline, and quality.
 
 ## References
 - [Kiro and the future of AI spec-driven software development](https://kiro.dev/blog/kiro-and-the-future-of-software-development/)

@@ -89,7 +89,7 @@ Before starting, identify which task management tools are available in your curr
 4.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 5.  **Sandbox Setup (If Configured)**: If sandbox development is configured in the feature-specific structure file:
     *   Check if the task should be performed in a sandbox environment.
-    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the unified sandbox directory (e.g., `.sandbox/feature-<feature-name>/`). This directory must be included in `.gitignore`. Use system copy tools where possible to avoid generating files from scratch.
+    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the unified sandbox directory (e.g., `.sandbox/features/<feature-name>/`). This directory must be included in `.gitignore`. Use system copy tools where possible to avoid generating files from scratch.
     *   Ensure sandbox isolation is maintained according to the configuration.
 6.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.

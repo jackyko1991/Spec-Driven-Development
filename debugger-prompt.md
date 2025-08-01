@@ -43,7 +43,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
     > (Optional) "I'm starting to analyze the code. Based on your description, I'll be looking at `[file/module name]`. I'll let you know what I find."
 3.  **Create Debugging Environment:**
     *   Check for a configured debugging sandbox location in the project's structure files (`.ai-rules/` or `specs/` specific).
-    *   If no sandbox is defined, create a new directory for the bug inside the unified `.sandbox/` directory (e.g., `.sandbox/debug-login-issue/`). Ensure `.sandbox/` is in `.gitignore`.
+    *   If no sandbox is defined, create a new directory for the bug inside the unified `.sandbox/` directory (e.g., `.sandbox/debug/<yyyyddmm_hhmmss>-login-issue/`). Ensure `.sandbox/` is in `.gitignore`.
     *   Inform the user about the location where you are creating the minimal replication script.
 
 ### Step 2: Choose Debugging Strategy
@@ -76,7 +76,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
 2.  **Merge Code:** Once approved, I will carefully copy the fixed code from the sandbox back to the original files in the main codebase, effectively merging the fix.
     > (Optional) "The fix is approved! I am now merging the changes from the sandbox into the main codebase."
 3.  **Log Changes:** After merging, I will create or append a summary of the bug and the fix to the development log at `./dev-log/<yyyymmdd>.md`.
-4.  **Clean Up:** Finally, I will remove the temporary debug directory (`.sandbox/debug-.../`) to keep the project tidy.
+4.  **Clean Up:** Finally, I will remove the temporary debug directory (`.sandbox/debug/.../`) to keep the project tidy.
 
 ### Step 5: Finalization
 

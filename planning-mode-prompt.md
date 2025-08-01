@@ -45,7 +45,7 @@ Before starting the main workflow, you must verify the project's testing and dev
    - If sandbox structure is not defined, ask the user:
      > "Should we use a development sandbox for this feature? This helps isolate new work and enables parallel development."
    - If yes, offer the choice between:
-     - **Local `sandbox/` folder** - Simple isolated directory for feature development
+     - **Local `sandbox/` folder** - A minimal copy of only the necessary files for feature development.
      - **Git worktree** - Managed alongside main folder, ideal for parallel development
    - Ask about dedicated debugging sandbox:
      > "Would you also like a dedicated sandbox for debugging? This can help test fixes in isolation."

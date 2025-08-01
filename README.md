@@ -13,8 +13,19 @@ The SDD workflow consists of three sequential phases:
 1.  **🧭 Steering Architect Mode**: Define the project's high-level rules, product vision, technology stack, and overall structure.
 2.  **🗂️ Planning Mode**: Collaboratively create detailed feature specifications, including requirements, design documents, and actionable tasks.
 3.  **⚡ Execution Mode**: Implement the defined tasks atomically, verify their correctness, and incrementally update the codebase and documentations.
+4.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs in an isolated sandbox environment.
 
 Each phase is supported by specialized agentic tools and context files, which enforce coding discipline and minimize ambiguity throughout the development lifecycle.
+
+```mermaid
+graph LR
+    A[🧭 Steering Architect] --> B[🗂️ Planning];
+    B --> C[⚡ Execution];
+    C --> D{Bug Found?};
+    D -- No --> C;
+    D -- Yes --> E[🐞 Debugger];
+    E --> C;
+```
 
 ---
 
@@ -85,7 +96,32 @@ Features can be developed in parallel, while tasks within each feature are execu
 
 ---
 
-## 4. 🤖 Setting up the SDD Agents
+## 4. 🐞 Debugger Mode
+
+When a bug is identified during the **Execution Mode**, the SDD workflow provides a seamless transition to the **Debugger Mode**. This mode is designed to provide a safe and structured environment for bug resolution, ensuring that fixes are tested in isolation before being merged into the main codebase.
+
+### Key Features:
+- **Isolation**: Bugs are replicated in a minimal, sandboxed environment (either a configured sandbox or a temporary `.ai_debug/` folder) to prevent any impact on the main development work.
+- **Two-Tiered Strategy**: Offers both **Atomic Function Testing** (using TDD) for isolated bugs and **System Integration Debugging** for more complex issues.
+- **User-Centric Verification**: The agent collaborates with the user to verify that the fix resolves the original bug without introducing new ones.
+- **Seamless Workflow Integration**: After a bug is fixed and merged, the agent prompts to switch back to the **Execution Mode** to continue with the next task, ensuring a smooth development cycle.
+
+---
+
+### The Execution-Debug Cycle: A Pendulum Approach
+
+Our SDD workflow introduces a "pendulum" or "boomerang" development cycle between the **Execution** and **Debugger** modes, designed for rapid and stable feature development in progressive mode.
+
+The cycle works as follows:
+1.  **Execute**: The `task-executor` agent implements a significant, planned task from the `tasks.md` file.
+2.  **Verify**: Upon completion, the agent presents the changes to the user for verification.
+3.  **Debug (if needed)**: If the user identifies a bug, the workflow seamlessly transitions to the `debugger` agent. The bug is then isolated, replicated, and fixed in a safe sandbox environment.
+4.  **Return**: Once the bug is resolved and the fix is merged, the `debugger` agent offers to switch back to the `task-executor`.
+5.  **Continue**: The `task-executor` picks up the next task, continuing the development momentum.
+
+This iterative process ensures that each piece of implemented functionality is validated before moving on, creating a tight feedback loop that builds robust and reliable features quickly.
+
+## 5. 🤖 Setting up the SDD Agents
 
 This section provides instructions for configuring agentic tools like Claude Code and Roo Code to use the SDD methodology with sub-agents or modes.
 
@@ -94,6 +130,7 @@ The prompts for each mode are essential for guiding the AI.
 - [Steering Architect Mode Prompt](steering-architect-prompt.md)
 - [Planning Mode Prompt](planning-mode-prompt.md)
 - [Execution Mode Prompt](execution-mode-prompt.md)
+- [Debugger Mode Prompt](debugger-prompt.md)
 
 ### Claude Code Setup
 1.  Use the `/agents` command in Claude Code and select `Create new agent`.

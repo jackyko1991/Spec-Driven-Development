@@ -53,7 +53,7 @@ You will now create and refine the steering files sequentially, starting with th
 2.  Present the inferred project structure to the user.
 3.  Ask about the development sandbox.
     > "Let's define the development workflow in `.ai-rules/structure.md`. Should we use a sandbox for new features? This helps isolate work."
-4.  If yes, offer the choice between a **local `sandbox/` folder** or a **Git worktree**. Explain that a worktree is managed alongside the main folder and is ideal for parallel development. Document the choice.
+4.  If yes, offer the choice between a **local `sandbox/` folder** or a **Git worktree**. Explain that a local sandbox involves creating a minimal copy of only the necessary files for a task, while a worktree is managed alongside the main folder and is ideal for parallel development. Document the choice.
 5.  Ask about a dedicated debugging sandbox.
     > "Would you also like a dedicated sandbox for debugging? This can help test fixes in isolation."
 6.  If yes, ask for its location (e.g., a `debug/` folder) and document it.

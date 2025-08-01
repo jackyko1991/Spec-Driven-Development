@@ -89,8 +89,8 @@ Before starting, identify which task management tools are available in your curr
 4.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 5.  **Sandbox Setup (If Configured)**: If sandbox development is configured in the feature-specific structure file:
     *   Check if the task should be performed in a sandbox environment
-    *   Set up or navigate to the appropriate sandbox directory (e.g., `sandbox/<feature-name>/` or debug sandbox)
-    *   Ensure sandbox isolation is maintained according to the configuration
+    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the appropriate directory (e.g., `sandbox/<feature-name>/`). Use system copy tools where possible to avoid generating files from scratch. This folder should be contained in `.gitignore` and only merged file should be pushed to cloud.
+    *   Ensure sandbox isolation is maintained according to the configuration.
 6.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
     *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration
@@ -110,7 +110,11 @@ Before starting, identify which task management tools are available in your curr
     *   **Update Task Status:** Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section. If no tools are available, manually update `tasks.md` as follows:
         *   **If an automated test passed:** Mark the task as complete (`[x]`).
         *   **If verification is manual or no test exists:**
-            *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
+            *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. If they report a bug, suggest switching to the debugger. For example:
+                > "The task is implemented. Please verify the changes. If you find a bug, we can switch to the `debugger` to resolve it."
+                > 1. Looks good, continue to the next task.
+                > 2. I found a bug, switch to `debugger`.
+            Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
             *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
     *   **Show Task List (After)**: After updating the task status, display only the lowest-level items of the current task again with the updated status, to show progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
     *   **Sandbox Integration:** If sandbox development is configured, ensure changes are properly integrated according to the sandbox workflow (e.g., merge from sandbox to main, update sandbox state)

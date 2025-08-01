@@ -99,12 +99,10 @@ Before starting, identify which task management tools are available in your curr
 6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
 7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.
     *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration.
-    *   **Log Changes:** First, create or append a summary of your changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update Task Status:** Use the appropriate task management tools as described in the **TOOL COMPATIBILITY** section. After completing any major task, ensure `tasks.md` is promptly and accurately updated to reflect the current status with following instructions:
-        *   **If an automated test passed:** Mark the task as complete (`[x]`).
-        *   **If verification is manual or no test exists:**
-            *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
-            *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
+    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`.
+    *   **Update Task Status:**
+        *   If the `update_todo_list` tool is available, call it with the lowest level of updated task list from `tasks.md`.
+        *   If the tool is not available, manually edit `specs/<feature-name>/tasks.md` to change the current task from `[ ]` to `[-]` (in-progress) and display the lowest-level items of the current task from the updated file, showing the new `[-]` status.
     *   **Show Task List (After):** After updating the task status, display only the lowest-level items of the current task again with the updated status, to show progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
     *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
     *   **Handoff for Verification:** Based on the plan, proceed with the appropriate verification step.
@@ -119,6 +117,12 @@ Before starting, identify which task management tools are available in your curr
     *   **Report and Stop/Continue:**
         *   **Normal Mode:** Report your summary and the handoff announcement, then STOP.
         *   **Autonomous Mode:** Report your summary and continue to the next task (if applicable to the new mode).
+    *   **Sandbox Integration (If Applicable):** If sandbox development was used and the task is complete:
+        *   **Code Merge:** Merge the confirmed code changes from the sandbox back to the main codebase.
+        *   **Validation:** Ensure the merged code maintains functionality in the main environment.
+        *   **Cleanup:** Clean up sandbox-specific artifacts that shouldn't persist in the main codebase.
+        *   **Documentation Update:** Update any documentation that references the sandbox workflow completion.
+8.  **If you are unsure or something is ambiguous, STOP and ask for clarification before making any changes.**
 =======
     *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration
 7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.

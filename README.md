@@ -12,7 +12,7 @@ This document outlines the **Specification-Driven Development (SDD)** workflow, 
     - [2. 🗂️ Planning Mode](#2--️-planning-mode)
     - [3. ⚡ Execution Mode](#3--execution-mode)
     - [4. 🐞 Debugger Mode](#4--debugger-mode)
-- [🤖 Setting up the SDD Agents](#setting-up-the-sdd-agents)
+- [🤖 Setting up the SDD Agents](#-setting-up-the-sdd-agents)
 - [✅ Best Practices for SDD](#-best-practices-for-sdd)
 - [🔬 Applying SDD to Scientific Data Analysis](#-applying-sdd-to-scientific-data-analysis)
 - [Conclusion](#conclusion)

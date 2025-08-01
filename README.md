@@ -11,7 +11,8 @@ This document outlines the **Specification-Driven Development (SDD)** workflow, 
     - [1. 🧭 Steering Architect Mode](#1--steering-architect-mode)
     - [2. 🗂️ Planning Mode](#2--️-planning-mode)
     - [3. ⚡ Execution Mode](#3--execution-mode)
-    - [4. 🐞 Debugger Mode](#4--debugger-mode)
+    - [4. 🧪 Tester Mode](#4--tester-mode)
+    - [5. 🐞 Debugger Mode](#5--debugger-mode)
 - [🤖 Setting up the SDD Agents](#-setting-up-the-sdd-agents)
 - [✅ Best Practices for SDD](#-best-practices-for-sdd)
 - [🔬 Applying SDD to Scientific Data Analysis](#-applying-sdd-to-scientific-data-analysis)
@@ -27,7 +28,8 @@ The SDD workflow consists of three sequential phases:
 1.  **🧭 Steering Architect Mode**: Define the project's high-level rules, product vision, technology stack, and overall structure.
 2.  **🗂️ Planning Mode**: Collaboratively create detailed feature specifications, including requirements, design documents, and actionable tasks.
 3.  **⚡ Execution Mode**: Implement the defined tasks atomically, verify their correctness, and incrementally update the codebase and documentations.
-4.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs in an isolated sandbox environment.
+4.  **🧪 Tester Mode**: Write and run tests to verify feature correctness after implementation.
+5.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs in an isolated, unified sandbox environment.
 
 Each phase is supported by specialized agentic tools and context files, which enforce coding discipline and minimize ambiguity throughout the development lifecycle.
 
@@ -35,10 +37,13 @@ Each phase is supported by specialized agentic tools and context files, which en
 graph LR
     A[🧭 Steering Architect] --> B[🗂️ Planning];
     B --> C[⚡ Execution];
-    C --> D{Bug Found?};
-    D -- No --> C;
-    D -- Yes --> E[🐞 Debugger];
-    E --> C;
+    C --> D{Verification Method?};
+    D -- TDD --> E[🧪 Tester];
+    D -- Manual/UI --> F[🐞 Debugger];
+    E --> G{Tests Pass?};
+    G -- Yes --> C;
+    G -- No after retries --> F;
+    F -- Fix Verified --> C;
 ```
 
 ---
@@ -48,20 +53,20 @@ graph LR
 **Responsibilities:**
 - Analyze the existing codebase (if any) to establish a baseline.
 - Generate or update foundational rule files (e.g., in an `.ai-rules/` directory).
-- Document the product vision, technology stack, folder structure, and project-level architectural rules. This now includes establishing conventions for unit testing and development sandboxes (local folder or Git worktree).
+- Document the product vision, technology stack, folder structure, and project-level architectural rules. This now includes establishing conventions for unit testing and a unified development sandbox.
 
 **Artifacts:**
 - `.ai-rules/product.md`: Describes the product's purpose, features, and target audience.
 - `.ai-rules/tech.md`: Specifies the programming languages, frameworks, libraries, and testing strategies to be used.
-- `.ai-rules/structure.md`: Defines the project's directory layout, file organization, and sandbox environment conventions.
+- `.ai-rules/structure.md`: Defines the project's directory layout, file organization, and the unified sandbox environment conventions.
 
 ### Development and Debugging Sandboxes
 
-To ensure a clean and isolated development environment, the Steering Architect establishes conventions for using sandboxes. A sandbox is a temporary, isolated environment where new features can be developed or bugs can be fixed without affecting the main codebase. This practice is crucial for parallel development and maintaining stability.
+To ensure a clean and isolated development environment, the Steering Architect establishes conventions for using a unified sandbox. A sandbox is a temporary, isolated environment where new features can be developed or bugs can be fixed without affecting the main codebase.
 
-The agent will ask about two types of sandboxes:
--   **Development Sandbox**: For building new features. The options are typically a local `sandbox/` folder or a more advanced Git worktree.
--   **Debugging Sandbox**: A dedicated space (e.g., a `debug/` folder) for isolating bug fixes.
+All isolated work, whether for new features or bug fixes, takes place in the `.sandbox/` directory. The method for creating this sandbox can be configured:
+-   **Directory Copy**: A minimal copy of only the necessary files for the task.
+-   **Git Worktree**: A more advanced approach where the sandbox is a linked Git worktree, ideal for seamless version control and parallel development.
 
 These choices are documented in `.ai-rules/structure.md`, and the corresponding folders are added to `.gitignore` to keep the main repository clean.
 
@@ -91,7 +96,10 @@ Engage in a dialogue with the AI agent to refine and clarify ideas. The agent sh
 
 ## 3. ⚡ Execution Mode
 
-In Execution Mode, the agent functions as a focused coding assistant. It systematically reads the `tasks.md` file and generates incremental code changes with a strong emphasis on **Test-Driven Development (TDD)** to ensure functionality and reliability. The agent adheres to agile DevOps practices, delivering small, verifiable improvements that align with project requirements and maintain high code quality. It also handles documentation updates, ensuring that code and documentation remain synchronized.
+In Execution Mode, the agent implements tasks and then hands off for verification based on the workflow defined in the planning phase.
+
+-   **TDD Workflow**: The `task-executor` writes code and passes it to the `tester`. The `tester` runs tests. If tests fail, it can loop back to the `executor` for a few attempts. If the issue persists, it escalates to the `debugger` for human-in-the-loop support.
+-   **Manual/UI Workflow**: For tasks like UI/UX changes where visual confirmation is needed, the `task-executor` sends the changes directly to the `debugger` for human review and feedback.
 
 ### Detailed Workflow:
 1.  **Identify Task**: Open `tasks.md` and select the first unchecked (`[ ]`) task.
@@ -110,12 +118,28 @@ Features can be developed in parallel, while tasks within each feature are execu
 
 ---
 
-## 4. 🐞 Debugger Mode
+## 4. 🧪 Tester Mode
+
+**Responsibilities:**
+- Read the testing strategy from `.ai-rules/tech.md` or `specs/<feature-name>/.ai_rules/tech.md`.
+- Write and execute unit tests based on the `requirements.md`.
+- Report test results.
+
+**Workflow:**
+1.  **Write Tests**: Implement tests covering the feature's acceptance criteria.
+2.  **Run Tests**: Execute the test suite.
+3.  **Handoff**:
+    - If tests pass, suggest returning to **Execution Mode** to continue with the next task.
+    - If tests fail, suggest switching to **Debugger Mode** to resolve the issues.
+
+---
+
+## 5. 🐞 Debugger Mode
 
 When a bug is identified during the **Execution Mode**, the SDD workflow provides a seamless transition to the **Debugger Mode**. This mode is designed to provide a safe and structured environment for bug resolution, ensuring that fixes are tested in isolation before being merged into the main codebase.
 
 ### Key Features:
-- **Isolation**: Bugs are replicated in a minimal, sandboxed environment (either a configured sandbox or a temporary `.ai_debug/` folder) to prevent any impact on the main development work.
+- **Isolation**: Bugs are replicated in a minimal, sandboxed environment within the unified `.sandbox/` directory to prevent any impact on the main development work.
 - **Two-Tiered Strategy**: Offers both **Atomic Function Testing** (using TDD) for isolated bugs and **System Integration Debugging** for more complex issues.
 - **User-Centric Verification**: The agent collaborates with the user to verify that the fix resolves the original bug without introducing new ones.
 - **Seamless Workflow Integration**: After a bug is fixed and merged, the agent prompts to switch back to the **Execution Mode** to continue with the next task, ensuring a smooth development cycle.
@@ -129,7 +153,7 @@ Our SDD workflow introduces a "pendulum" or "boomerang" development cycle betwee
 The cycle works as follows:
 1.  **Execute**: The `task-executor` agent implements a significant, planned task from the `tasks.md` file.
 2.  **Verify**: Upon completion, the agent presents the changes to the user for verification.
-3.  **Debug (if needed)**: If the user identifies a bug, the workflow seamlessly transitions to the `debugger` agent. The bug is then isolated, replicated, and fixed in a safe sandbox environment.
+3.  **Debug (if needed)**: If the user identifies a bug, the workflow seamlessly transitions to the `debugger` agent. The bug is then isolated, replicated, and fixed in the unified sandbox environment.
 4.  **Return**: Once the bug is resolved and the fix is merged, the `debugger` agent offers to switch back to the `task-executor`.
 5.  **Continue**: The `task-executor` picks up the next task, continuing the development momentum.
 
@@ -144,6 +168,7 @@ The prompts for each mode are essential for guiding the AI.
 - [Steering Architect Mode Prompt](steering-architect-prompt.md)
 - [Planning Mode Prompt](planning-mode-prompt.md)
 - [Execution Mode Prompt](execution-mode-prompt.md)
+- [Tester Mode Prompt](tester-prompt.md)
 - [Debugger Mode Prompt](debugger-prompt.md)
 
 ### Claude Code Setup

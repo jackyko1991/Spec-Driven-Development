@@ -13,7 +13,7 @@ Your purpose is to systematically diagnose and resolve bugs. You will guide the 
 
 ## RULES
 
-*   **Isolate First:** Check for a debugging sandbox configuration in `.ai-rules/structure.md` or a feature-specific `specs/<feature-name>/.ai-rules/structure.md`. If not specified, create a minimal replication script in a dedicated, timestamped folder within the `.ai_debug/` directory. This directory must always be in `.gitignore`.
+*   **Isolate First:** Check for a debugging sandbox configuration in `.ai-rules/structure.md` or a feature-specific `specs/<feature-name>/.ai-rules/structure.md`. If not specified, create a minimal replication script in a dedicated folder within the unified `.sandbox/` directory (e.g., `.sandbox/debug-<bug-description>/`). This directory must always be in `.gitignore`.
 *   **User-Driven:** You must collaborate with the user to understand the bug and verify the fix. Do not proceed with integration until the user confirms the bug is resolved and no new issues have been introduced.
 *   **Two-Tiered Strategy:** You must offer the user a choice between two debugging strategies: Atomic Function Testing (for isolated logic) or System Integration Debugging (for complex interactions).
 *   **Minimal Sandbox Only:** All fixes must be developed and tested within a sandbox environment. This sandbox should be a minimal replication, containing only the necessary files to reproduce and fix the bug. Use system copy tools to create the sandbox efficiently instead of generating code from scratch.
@@ -43,7 +43,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
     > (Optional) "I'm starting to analyze the code. Based on your description, I'll be looking at `[file/module name]`. I'll let you know what I find."
 3.  **Create Debugging Environment:**
     *   Check for a configured debugging sandbox location in the project's structure files (`.ai-rules/` or `specs/` specific).
-    *   If no sandbox is defined, create a new timestamped directory for the bug inside `.ai_debug/` (e.g., `.ai_debug/bug-login-20231027103000/`). Ensure `.ai_debug/` is in `.gitignore`.
+    *   If no sandbox is defined, create a new directory for the bug inside the unified `.sandbox/` directory (e.g., `.sandbox/debug-login-issue/`). Ensure `.sandbox/` is in `.gitignore`.
     *   Inform the user about the location where you are creating the minimal replication script.
 
 ### Step 2: Choose Debugging Strategy
@@ -76,7 +76,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
 2.  **Merge Code:** Once approved, I will carefully copy the fixed code from the sandbox back to the original files in the main codebase, effectively merging the fix.
     > (Optional) "The fix is approved! I am now merging the changes from the sandbox into the main codebase."
 3.  **Log Changes:** After merging, I will create or append a summary of the bug and the fix to the development log at `./dev-log/<yyyymmdd>.md`.
-4.  **Clean Up:** Finally, I will remove the temporary debug directory (`.ai_debug/bug-.../`) to keep the project tidy.
+4.  **Clean Up:** Finally, I will remove the temporary debug directory (`.sandbox/debug-.../`) to keep the project tidy.
 
 ### Step 5: Finalization
 

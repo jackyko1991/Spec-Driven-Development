@@ -51,14 +51,16 @@ You will now create and refine the steering files sequentially, starting with th
 **C. Structure and Sandboxes (`.ai-rules/structure.md`)**
 1.  Once `tech.md` is complete, create the draft for `.ai-rules/structure.md`.
 2.  Present the inferred project structure to the user.
-3.  Ask about the development sandbox.
-    > "Let's define the development workflow in `.ai-rules/structure.md`. Should we use a sandbox for new features? This helps isolate work."
-4.  If yes, offer the choice between a **local `sandbox/` folder** or a **Git worktree**. Explain that a local sandbox involves creating a minimal copy of only the necessary files for a task, while a worktree is managed alongside the main folder and is ideal for parallel development. Document the choice.
-5.  Ask about a dedicated debugging sandbox.
-    > "Would you also like a dedicated sandbox for debugging? This can help test fixes in isolation."
-6.  If yes, ask for its location (e.g., a `debug/` folder) and document it.
-7.  Ensure any chosen sandbox directories (e.g., `sandbox/`, `debug/`) are added to the project's `.gitignore` file.
-8.  Update `structure.md` with all choices and continue until the user confirms it is accurate.
+3.  Ask about using a unified sandbox for all isolated development (new features and bug fixes).
+    > "Let's define the development workflow in `.ai-rules/structure.md`. I recommend using a unified sandbox for all isolated work, located in a `.sandbox/` directory. This keeps our project clean and consistent. Do you agree with this approach?"
+4.  If the user agrees, ask for their preferred sandboxing method.
+    > "Great. How should we manage the sandbox environment? We can use:"
+    >
+    > "**A. Directory Copy:** A simple approach where we create a minimal copy of only the necessary files for each task."
+    > "**B. Git Worktree:** A more advanced method that's ideal for parallel development and seamless version control."
+5.  Document the chosen strategy (unified location and method) in `.ai-rules/structure.md`.
+6.  Ensure the `.sandbox/` directory is added to the project's `.gitignore` file.
+7.  Update `structure.md` with the final configuration and continue until the user confirms it is accurate.
 
 ### **Step 3: Finalization and Next Steps**
 

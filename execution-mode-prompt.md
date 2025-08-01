@@ -88,40 +88,36 @@ Before starting, identify which task management tools are available in your curr
 3.  **Show Task List (Before)**: Before starting, display only the lowest-level items of the current task from `tasks.md`, highlighting the current task to provide context of the overall progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
 4.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
 5.  **Sandbox Setup (If Configured)**: If sandbox development is configured in the feature-specific structure file:
-    *   Check if the task should be performed in a sandbox environment
-    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the appropriate directory (e.g., `sandbox/<feature-name>/`). Use system copy tools where possible to avoid generating files from scratch. This folder should be contained in `.gitignore` and only merged file should be pushed to cloud.
+    *   Check if the task should be performed in a sandbox environment.
+    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the unified sandbox directory (e.g., `.sandbox/feature-<feature-name>/`). This directory must be included in `.gitignore`. Use system copy tools where possible to avoid generating files from scratch.
     *   Ensure sandbox isolation is maintained according to the configuration.
 6.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
     *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
     *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration
-7.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task:
-    *   **Feature-Specific Testing:** Use testing frameworks specified in `@specs/<feature-name>/.ai_rules/tech.md` if available, otherwise fall back to `@.ai-rules/tech.md`
-    *   **Unit Tests:** If unit testing is configured for this feature, implement and run unit tests using the specified framework
-    *   **Manual Tests:** For manual verification, STOP and ask the user for verification
-    *   **Sandbox Testing:** If in sandbox mode, ensure tests run in the sandbox environment
-6.  **Sandbox Integration (If Applicable)**: If sandbox development was used and the task is complete:
+7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.
+    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`.
+    *   **Update `tasks.md` Manually:** Manually edit `specs/<feature-name>/tasks.md` to change the current task from `[ ]` to `[-]` (in-progress). This ensures the file is always the source of truth.
+    *   **Update Task Tool & Display Progress:**
+        *   If the `update_todo_list` tool is available, call it with the full, updated task list from `tasks.md`.
+        *   If the tool is not available, display the lowest-level items of the current task from the updated `tasks.md` file, showing the new `[-]` status.
+    *   **Handoff for Verification**: Based on the plan, proceed with the appropriate verification step.
+        *   **TDD Workflow**: If unit testing is configured, switch to `tester` mode. Announce:
+            > "Implementation complete. Marking task as in-progress and switching to `tester` mode to run unit tests."
+        *   **Manual/UI Workflow**: If the task requires manual or visual verification, ask the user for confirmation before proceeding. Announce:
+            > "The task is implemented and marked as in-progress. Please verify the changes. If you find a bug, we can switch to the `debugger` to resolve it."
+            >
+            > **Next Steps:**
+            > 1. Looks good, perform code merging and continue next task(s).
+            > 2. I found a bug, switch to `debugger`.
+8.  **Sandbox Integration (If Applicable)**: If sandbox development was used and the task is complete:
     *   **Code Merge:** Merge the confirmed code changes from the sandbox back to the main codebase
     *   **Validation:** Ensure the merged code maintains functionality in the main environment
     *   **Cleanup:** Clean up sandbox-specific artifacts that shouldn't persist in the main codebase
     *   **Documentation Update:** Update any documentation that references the sandbox workflow completion
-7.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
-8.  **Update State**:
-    *   **Log Changes:** First, create or append a summary of your changes to a development log file at `./dev-log/<yyyymmdd>.md`.
-    *   **Update Task Status:** Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section. If no tools are available, manually update `tasks.md` as follows:
-        *   **If an automated test passed:** Mark the task as complete (`[x]`).
-        *   **If verification is manual or no test exists:**
-            *   **Normal Mode:** Summarize the changes and ask the user to confirm functionality. If they report a bug, suggest switching to the debugger. For example:
-                > "The task is implemented. Please verify the changes. If you find a bug, we can switch to the `debugger` to resolve it."
-                > 1. Looks good, continue to the next task.
-                > 2. I found a bug, switch to `debugger`.
-            Do **not** mark the task as complete yet. After they approve, you will mark it complete on the next run.
-            *   **Autonomous Mode:** Mark the task as complete (`[x]`) and proceed.
-    *   **Show Task List (After)**: After updating the task status, display only the lowest-level items of the current task again with the updated status, to show progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
-    *   **Sandbox Integration:** If sandbox development is configured, ensure changes are properly integrated according to the sandbox workflow (e.g., merge from sandbox to main, update sandbox state)
-    *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md` or feature-specific tech configuration.
-    *   **Report and Stop/Continue:**
-        *   **Normal Mode:** Report your summary and the request for verification, then STOP.
-        *   **Autonomous Mode:** Report your summary and continue to the next task.
+9.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
+10. **Report and Stop/Continue:**
+    *   **Normal Mode:** Report your summary and the handoff announcement, then STOP.
+    *   **Autonomous Mode:** Report your summary and continue to the next task (if applicable to the new mode).
 8.  **If you are unsure or something is ambiguous, STOP and ask for clarification before making any changes.**
 
 # **General Rules**

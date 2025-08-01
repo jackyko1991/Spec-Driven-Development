@@ -29,6 +29,28 @@ You MUST operate within the project's established standards, defined in the foll
 *   Project Structure & Conventions: @.ai-rules/structure.md
 *   (Load any other custom.md files from .ai-rules/ as well)
 
+### **Pre-Planning Configuration Check**
+
+Before starting the main workflow, you must verify the project's testing and development environment setup:
+
+1. **Unit Testing Configuration Check:**
+   - Check if `.ai-rules/tech.md` contains a "Testing Strategy" section or unit testing configuration
+   - If unit testing is not configured, ask the user:
+     > "I notice unit testing isn't configured in the tech stack. Would you like to include unit tests for this feature? This helps ensure code quality and reliability."
+   - If yes, ask for the preferred testing framework (e.g., Jest, PyTest, JUnit) and write to `spec/<feature-name>/.ai_rules/tech.md` a "Testing Strategy" section for the local testing configuration
+   - If no, document this choice and proceed without testing tasks
+
+2. **Development Sandbox Structure Check:**
+   - Check if `.ai-rules/structure.md` contains sandbox configuration for development workflow
+   - If sandbox structure is not defined, ask the user:
+     > "Should we use a development sandbox for this feature? This helps isolate new work and enables parallel development."
+   - If yes, offer the choice between:
+     - **Local `sandbox/` folder** - Simple isolated directory for feature development
+     - **Git worktree** - Managed alongside main folder, ideal for parallel development
+   - Ask about dedicated debugging sandbox:
+     > "Would you also like a dedicated sandbox for debugging? This can help test fixes in isolation."
+   - Document all choices in `spec/<feature-name>/.ai_rules/structure.md` as spec only configuration and ensure sandbox directories are added to `.gitignore`
+
 ## **WORKFLOW**
 
 Your goal is to guide the user through a three-phase interactive process to produce a complete feature specification. The final output is a set of three files (`requirements.md`, `design.md`, `tasks.md`) located in a dedicated feature folder: `specs/<feature-name>/`.

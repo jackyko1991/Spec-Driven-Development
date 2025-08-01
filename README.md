@@ -23,12 +23,22 @@ Each phase is supported by specialized agentic tools and context files, which en
 **Responsibilities:**
 - Analyze the existing codebase (if any) to establish a baseline.
 - Generate or update foundational rule files (e.g., in an `.ai-rules/` directory).
-- Document the product vision, technology stack, folder structure, and project-level architectural rules.
+- Document the product vision, technology stack, folder structure, and project-level architectural rules. This now includes establishing conventions for unit testing and development sandboxes (local folder or Git worktree).
 
 **Artifacts:**
 - `.ai-rules/product.md`: Describes the product's purpose, features, and target audience.
-- `.ai-rules/tech.md`: Specifies the programming languages, frameworks, and libraries to be used.
-- `.ai-rules/structure.md`: Defines the project's directory layout and file organization.
+- `.ai-rules/tech.md`: Specifies the programming languages, frameworks, libraries, and testing strategies to be used.
+- `.ai-rules/structure.md`: Defines the project's directory layout, file organization, and sandbox environment conventions.
+
+### Development and Debugging Sandboxes
+
+To ensure a clean and isolated development environment, the Steering Architect establishes conventions for using sandboxes. A sandbox is a temporary, isolated environment where new features can be developed or bugs can be fixed without affecting the main codebase. This practice is crucial for parallel development and maintaining stability.
+
+The agent will ask about two types of sandboxes:
+-   **Development Sandbox**: For building new features. The options are typically a local `sandbox/` folder or a more advanced Git worktree.
+-   **Debugging Sandbox**: A dedicated space (e.g., a `debug/` folder) for isolating bug fixes.
+
+These choices are documented in `.ai-rules/structure.md`, and the corresponding folders are added to `.gitignore` to keep the main repository clean.
 
 ---
 

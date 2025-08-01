@@ -6,6 +6,20 @@ This document outlines the **Specification-Driven Development (SDD)** workflow, 
 
 ---
 
+## Table of Contents
+- [🚀 SDD Workflow Overview](#-sdd-workflow-overview)
+    - [1. 🧭 Steering Architect Mode](#1--steering-architect-mode)
+    - [2. 🗂️ Planning Mode](#2--️-planning-mode)
+    - [3. ⚡ Execution Mode](#3--execution-mode)
+    - [4. 🐞 Debugger Mode](#4--debugger-mode)
+- [🤖 Setting up the SDD Agents](#setting-up-the-sdd-agents)
+- [✅ Best Practices for SDD](#-best-practices-for-sdd)
+- [🔬 Applying SDD to Scientific Data Analysis](#-applying-sdd-to-scientific-data-analysis)
+- [Conclusion](#conclusion)
+- [References](#references)
+
+---
+
 ## 🚀 SDD Workflow Overview
 
 The SDD workflow consists of three sequential phases:
@@ -121,7 +135,7 @@ The cycle works as follows:
 
 This iterative process ensures that each piece of implemented functionality is validated before moving on, creating a tight feedback loop that builds robust and reliable features quickly.
 
-## 5. 🤖 Setting up the SDD Agents
+## 🤖 Setting up the SDD Agents
 
 This section provides instructions for configuring agentic tools like Claude Code and Roo Code to use the SDD methodology with sub-agents or modes.
 

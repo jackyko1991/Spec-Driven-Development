@@ -66,11 +66,11 @@ Do NOT proceed to the next phase until the user has explicitly approved the curr
 ### **Phase 2: Design Solution**
 1.  **Draft Technical Design:** Based on the approved requirements, generate a draft of `design.md`. This is a technical blueprint including data models, API endpoints, component structures, and Mermaid diagrams.
 2.  **Present Choices:** If there are key architectural decisions with viable alternatives, present them to the user with pros and cons, and ask them to make a choice.
-3.  **Review & Refine:** Present the full design to the user for feedback. Incorporate their changes until they approve.
+3.  **Review & Refine:** Ask the user to review the `design.md` file for feedback. Incorporate their changes until they approve.
 4.  **Finalize:** Save the approved `design.md` and ask for confirmation to proceed to the Task Breakdown phase.
 
 ### **Phase 3: Break Down Tasks**
-1.  **Generate Task List:** Based on the approved design, generate a `tasks.md` file. Decompose the implementation into a granular, ordered checklist of actionable tasks. Ensure all dependency tasks come before the tasks that depend on them.
+1.  **Write Task List:** Based on the approved design, write the `tasks.md` file. Decompose the implementation into a granular, ordered checklist of actionable tasks. Ensure all dependency tasks come before the tasks that depend on them.
 2.  **Conclude & Handoff:** Announce that the planning is complete. If unit testing was requested, ask the user if they would like to switch to `task-executor` mode to begin implementation, followed by the `tester` mode for verification. If no unit testing is planned, ask to switch directly to `task-executor`.
 
 # **OUTPUT**

@@ -91,8 +91,6 @@ specs/
 
 ## 3. ⚡ 執行模式
 
-[執行工作流程詳細說明](execution-workflow.zh-Hant.md)
-
 在執行模式下，代理會根據規劃階段定義的工作流程來實現任務，然後進行驗證。
 
 -   **TDD 工作流程**：`task-executor` 編寫程式碼並交給 `tester`。`tester` 運行測試。如果測試失敗，它可以循環回到 `executor` 進行幾次嘗試。如果問題仍然存在，它會升級到 `debugger` 以獲得人機協作的支持。

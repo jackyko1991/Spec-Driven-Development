@@ -89,8 +89,6 @@ Engage in dialogue with the AI agent to refine and clarify ideas. The agent shou
 
 ## 3. ⚡ Execution Mode
 
-[Detailed Execution Workflow Documentation](execution-workflow.md)
-
 The **Execution Mode** is the core engine of the SDD workflow. It is a highly autonomous agent that takes a task from the planning phase and sees it through to completion. It incorporates a flexible, test-driven approach with a powerful self-healing mechanism.
 
 Key features include:

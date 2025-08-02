@@ -2,7 +2,7 @@
 
 [繁體中文](README.zh-Hant.md)
 
-This document introduces the **Specification-Driven Development (SDD)** workflow—a structured methodology for building software using agentic tools such as Claude Code, AWS Kiro, and Roo Code. SDD organizes development into five clear phases: **Steering Architect**, **Planning**, **Execution**, **Tester**, and **Debugger**. This separation of concerns accelerates high-quality code generation, improves clarity, and ensures maintainability and traceability.
+This document introduces the **Specification-Driven Development (SDD)** workflow—a structured methodology for building software using agentic tools such as Claude Code, AWS Kiro, and Roo Code. SDD organizes development into four clear phases: **Steering Architect**, **Planning**, **Execution**, and **Debugger**. This separation of concerns accelerates high-quality code generation, improves clarity, and ensures maintainability and traceability.
 
 ---
 
@@ -11,8 +11,7 @@ This document introduces the **Specification-Driven Development (SDD)** workflow
     - [1. 🧭 Steering Architect Mode](#1--steering-architect-mode)
     - [2. 🗂️ Planning Mode](#2--️-planning-mode)
     - [3. ⚡ Execution Mode](#3--execution-mode)
-    - [4. 🧪 Tester Mode](#4--tester-mode)
-    - [5. 🐞 Debugger Mode](#5--debugger-mode)
+    - [4. 🐞 Debugger Mode](#4--debugger-mode)
 - [🤖 Setting up the SDD Agents](#-setting-up-the-sdd-agents)
 - [✅ Best Practices for SDD](#-best-practices-for-sdd)
 - [🔬 Applying SDD to Scientific Data Analysis](#-applying-sdd-to-scientific-data-analysis)
@@ -23,13 +22,12 @@ This document introduces the **Specification-Driven Development (SDD)** workflow
 
 ## 🚀 SDD Workflow Overview
 
-The SDD workflow consists of three sequential phases:
+The SDD workflow consists of three main phases, with a dedicated mode for debugging.
 
 1.  **🧭 Steering Architect Mode**: Define the project's high-level rules, product vision, technology stack, and overall structure.
 2.  **🗂️ Planning Mode**: Collaboratively create detailed feature specifications, including requirements, design documents, and actionable tasks.
-3.  **⚡ Execution Mode**: Implement tasks atomically, verify correctness, and incrementally update the codebase and documentation.
-4.  **🧪 Tester Mode**: Write and run tests to verify feature correctness after implementation.
-5.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs in an isolated, unified sandbox environment.
+3.  **⚡ Execution Mode**: A powerful, test-driven engine that implements tasks, verifies correctness with a self-healing mechanism, and incrementally updates the codebase.
+4.  **🐞 Debugger Mode**: A structured workflow to identify, replicate, and fix bugs, often initiated by the Execution mode.
 
 Each phase is supported by specialized agentic tools and context files, which enforce coding discipline and minimize ambiguity throughout the development lifecycle.
 
@@ -37,13 +35,8 @@ Each phase is supported by specialized agentic tools and context files, which en
 graph LR
     A[🧭 Steering Architect] --> B[🗂️ Planning];
     B --> C[⚡ Execution];
-    C --> D{Verification Method?};
-    D -- TDD --> E[🧪 Tester];
-    D -- Manual/UI --> F[🐞 Debugger];
-    E --> G{Tests Pass?};
-    G -- Yes --> C;
-    G -- No after retries --> F;
-    F -- Fix Verified --> C;
+    C -- Tests Fail --> D[🐞 Debugger];
+    D -- Fix Verified --> C;
 ```
 
 ---
@@ -96,45 +89,23 @@ Engage in dialogue with the AI agent to refine and clarify ideas. The agent shou
 
 ## 3. ⚡ Execution Mode
 
-In Execution Mode, the agent implements tasks and then hands off for verification based on the workflow defined in the planning phase.
+[Detailed Execution Workflow Documentation](execution-workflow.md)
 
--   **TDD Workflow**: The `task-executor` writes code and passes it to the `tester`. The `tester` runs tests. If tests fail, it can loop back to the `executor` for a few attempts. If the issue persists, it escalates to the `debugger` for human-in-the-loop support.
--   **Manual/UI Workflow**: For tasks like UI/UX changes where visual confirmation is needed, the `task-executor` sends the changes directly to the `debugger` for human review and feedback.
+The **Execution Mode** is the core engine of the SDD workflow. It is a highly autonomous agent that takes a task from the planning phase and sees it through to completion. It incorporates a flexible, test-driven approach with a powerful self-healing mechanism.
 
-### Detailed Workflow:
-1.  **Identify Task**: Open `tasks.md` and select the first unchecked (`[ ]`) task.
-2.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
-3.  **Implement & Document**: Apply a single, atomic code change for the current task. Update relevant documentation as you code (e.g., inline comments, user guides, API docs).
-4.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task.
-5.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" to ensure consistency.
-6.  **Update State**:
-    - If an automated test passes, mark the task as complete: `[x]`.
-    - If verification is manual or no test exists, summarize the changes and ask the user to confirm functionality (unless running in autonomous mode). Upon confirmation, mark the task as `[x]`.
-    - Summarize all changes in a development log, such as `./dev-log/<yyyymmdd>.md`.
-    - After major tasks are complete, run any documentation build commands if applicable.
+Key features include:
+- **Flexible Testing Strategies**: It can operate in TDD (Test-First), Classic (Code-First), or No-Tests mode, depending on the feature's configuration.
+- **Self-Healing Loop**: If tests fail, it automatically attempts to fix the code multiple times before asking for help.
+- **Seamless Debugger Handoff**: When it can't fix a problem, it packages up all the context into a handoff file and provides a smooth transition to the **Debugger Mode**.
+
+For a complete breakdown of its internal workings and a detailed diagram, see the [**Execution Workflow Documentation**](execution-workflow.md).
 
 ### Parallel Feature Development:
 Features can be developed in parallel, while tasks within each feature are executed sequentially. This enables efficient collaboration and faster delivery. For details on asynchronous local coding workflows, see [Asynchronous Coding on Local with Git Worktree](https://gist.github.com/jackyko1991/deb71662444b021c28f38e22c40be53d).
 
 ---
 
-## 4. 🧪 Tester Mode
-
-**Responsibilities:**
-- Read the testing strategy from `.ai-rules/tech.md` or `specs/<feature-name>/.ai_rules/tech.md`.
-- Write and execute unit tests based on the `requirements.md`.
-- Report test results.
-
-**Workflow:**
-1.  **Write Tests**: Implement tests covering the feature's acceptance criteria.
-2.  **Run Tests**: Execute the test suite.
-3.  **Handoff**:
-    - If tests pass, suggest returning to **Execution Mode** to continue with the next task.
-    - If tests fail, suggest switching to **Debugger Mode** to resolve the issues.
-
----
-
-## 5. 🐞 Debugger Mode
+## 4. 🐞 Debugger Mode
 
 When a bug is identified during the **Execution Mode**, the SDD workflow provides a seamless transition to the **Debugger Mode**. This mode is designed to provide a safe and structured environment for bug resolution, ensuring that fixes are tested in isolation before being merged into the main codebase.
 
@@ -168,7 +139,6 @@ The prompts for each mode are essential for guiding the AI.
 - [Steering Architect Mode Prompt](steering-architect-prompt.md)
 - [Planning Mode Prompt](planning-mode-prompt.md)
 - [Execution Mode Prompt](execution-mode-prompt.md)
-- [Tester Mode Prompt](tester-prompt.md)
 - [Debugger Mode Prompt](debugger-prompt.md)
 
 ### Claude Code Setup

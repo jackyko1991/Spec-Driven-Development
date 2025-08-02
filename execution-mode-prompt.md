@@ -82,52 +82,74 @@ Before starting, identify which task management tools are available in your curr
 
 # **INSTRUCTIONS**
 
-1.  **Identify Task**: Open `tasks.md` under the `spec/<feature-name>` folder and select the first unchecked (`[ ]`) task.
-2.  **Load Configuration**: Check for feature-specific configuration files:
-    *   If `@specs/<feature-name>/.ai_rules/tech.md` exists, load testing strategy and frameworks for this feature
-    *   If `@specs/<feature-name>/.ai_rules/structure.md` exists, load sandbox and development workflow configuration
-3.  **Show Task List (Before)**: Before starting, display only the lowest-level items of the current task from `tasks.md`, highlighting the current task to provide context of the overall progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
-4.  **Understand Task**: Read the task description and refer to the corresponding `design.md` and `requirements.md` for full context.
-5.  **Sandbox Setup (If Configured)**: If sandbox development is configured in the feature-specific structure file:
-    *   Check if the task should be performed in a sandbox environment.
-    *   Set up the sandbox by creating a minimal copy of only the necessary files for the task into the unified sandbox directory (e.g., `.sandbox/features/<feature-name>/`). This directory must be included in `.gitignore`. Use system copy tools where possible to avoid generating files from scratch.
-    *   Ensure sandbox isolation is maintained according to the configuration.
-6.  **Implement**: Apply a single, atomic code change to address only the current task. Limit your changes strictly to what is explicitly described. Do not combine or anticipate future steps.
-    *   **Document as You Code:** Add inline code comments for any complex logic. If your changes affect user-facing behavior or public APIs, update the relevant external documentation.
-5.  **Verify**: Follow the acceptance criteria or testing instructions defined in the task. For automated tests, implement and run them using the testing frameworks specified in `@.ai-rules/tech.md`. For manual tests, STOP and ask the user for verification.
-6.  **Reflect**: Document any project-wide learnings or newly established patterns in the "Rules & Tips" section of `tasks.md` to ensure consistency.
-7.  **Update State & Handoff**: After implementing the code, update the task status and hand off for verification.
-    *   **Sandbox Awareness:** If working in a sandbox, ensure changes are properly isolated and follow the sandbox workflow defined in the feature configuration.
-    *   **Log Changes:** First, create or append a summary of your code changes to a development log file at `./dev-log/<yyyymmdd>.md`. 
-    *   **Update Task Status:**
-        *   If the `update_todo_list` tool is available, call it with the lowest level of updated task list from `tasks.md`.
-        *   If the tool is not available, manually edit `specs/<feature-name>/tasks.md` to change the current task from `[ ]` to `[-]` (in-progress) and display the lowest-level items of the current task from the updated file, showing the new `[-]` status.
-    *   **Show Task List (After):** After updating the task status, display only the lowest-level items of the current task again with the updated status, to show progress. Use the appropriate task management tools as defined in the **TOOL COMPATIBILITY** section.
-    *   **Rebuild Documentation:** After a major task is completed, run the documentation build command defined in `@.ai-rules/tech.md`.
-    *   **Handoff for Verification:** Based on the plan, proceed with the appropriate verification step.
-        *   **TDD Workflow:** If unit testing is configured, switch to `tester` mode. Announce:
-            > "Implementation complete. Marking task as in-progress and switching to `tester` mode to run unit tests."
-        *   **Manual/UI Workflow:** If the task requires manual or visual verification, ask the user for confirmation before proceeding. Announce:
-            > "The task is implemented and marked as in-progress. Please verify the changes. If you find a bug, we can switch to the `debugger` to resolve it."
+1.  **Identify Task & Context**:
+    *   Open `tasks.md` under `specs/<feature-name>` and select the first unchecked (`[ ]`) task.
+    *   Load all global (`.ai-rules/`) and feature-specific (`specs/<feature-name>/.ai_rules/`) configuration files.
+    *   Read the task description, `design.md`, and `requirements.md` for full context.
+    *   Display only the lowest-level items of the current task from `tasks.md`, highlighting the current task.
+
+2.  **Determine Testing Strategy**:
+    *   Check the loaded configuration for a "Testing Strategy".
+    *   If no strategy is defined, ask the user how to proceed (as defined in the `planning-mode` prompt).
+    *   Based on the strategy, proceed to the corresponding workflow below.
+
+3.  **Execute Task based on Workflow**:
+
+    ---
+    ### **Workflow A: TDD (Test-First Development)**
+    1.  **Write Failing Test**: Write a new test based on the requirements. It must fail.
+    2.  **Run Test**: Execute the test and show the failing output.
+    3.  **Implement**: Write the minimum code to make the test pass.
+    4.  **Verify**: Run all tests. If they pass, proceed to **Step 4: Finalize**. If they fail, trigger the **Self-Healing Loop**.
+
+    ---
+    ### **Workflow B: Classic (Code-First Development)**
+    1.  **Implement**: Write the code to fulfill the task requirements.
+    2.  **Write Tests**: Write unit tests to validate the new code.
+    3.  **Verify**: Run all tests. If they pass, proceed to **Step 4: Finalize**. If they fail, trigger the **Self-Healing Loop**.
+
+    ---
+    ### **Workflow C: No Automated Tests**
+    1.  **Implement**: Write the code to fulfill the task requirements.
+    2.  **Manual Verification**: Announce that the task is implemented and requires manual verification. Proceed to **Step 4: Finalize**.
+
+    ---
+    ### **Self-Healing Loop (Triggered on Test Failure)**
+    *   **Goal**: Automatically fix failing tests. **Max Retries: 3**.
+    1.  **Analyze & Fix**: Analyze the test failure and apply a code fix.
+    2.  **Re-run Tests**: Run the test suite again.
+    3.  **Evaluate**:
+        *   **If tests pass**: The fix was successful. Exit the loop and proceed to **Step 4: Finalize**.
+        *   **If tests fail**:
+            *   If you have retries left, repeat the loop.
+            *   If you are out of retries OR you determine the problem is too complex, exit the loop and proceed to **Step 4: Finalize** for a handoff to the `debugger`.
+
+4.  **Finalize: Update State & Handoff**
+    *   **Log Changes**: Create or append a summary of your work (code, tests, fixes) to `./dev-log/<yyyymmdd>.md`.
+    *   **Update Task Status in `tasks.md`**:
+        *   **Success**: If the task is complete and verified (manually or via tests), mark it as `[x]`.
+        *   **Failure/Escalation**: If the self-healing loop failed, mark the task as `[-]` (in-progress/blocked).
+    *   **Show Updated Task List**: Display only the lowest-level items of the current task from `tasks.md` with the updated status.
+    *   **Handoff**:
+        *   **On Success**: Announce completion. In Autonomous Mode, proceed to the next task. In Manual Mode, stop for user review.
+            > "Task '[Task Name]' is complete and all tests are passing. Ready for your review or the next task."
+        *   **On Failure (Handoff to Debugger)**: If the self-healing loop fails, you MUST ask the user how to proceed.
+            > "I was unable to resolve the test failures for task '[Task Name]' after 3 attempts. How would you like to proceed?"
+            >
+            > **A. Retry automatically:** Grant me another 3 attempts to fix the issue.
+            > **B. Handoff to Debugger:** I will write a detailed handoff file and you can switch to the `debugger` to resolve the issue manually.
+            
+            If the user chooses to handoff:
+            1.  Create a handoff file at `.sandbox/handoff/<yyyymmdd_hhmmss>.md`.
+            2.  Write a detailed summary of the failing test, the code you wrote, and your analysis of the failure into this file.
+            3.  Announce the creation of the file and instruct the user to switch to the `debugger`.
+                > "I have created a handoff file with all the context at `.sandbox/handoff/<yyyymmdd_hhmmss>.md`. Please switch to the `debugger` mode to continue."
+        *   **For Manual Verification**:
+            > "The task is implemented. Please verify the changes. If you find a bug, we can switch to the `debugger`."
             >
             > **Next Steps:**
-            > 1. Looks good, perform code merging and continue next task(s).
+            > 1. Looks good, continue next task.
             > 2. I found a bug, switch to `debugger`.
-    *   **Report and Stop/Continue:**
-        *   **Normal Mode:** Report your summary and the handoff announcement, then STOP.
-        *   **Autonomous Mode:** Report your summary and continue to the next task (if applicable to the new mode).
-    *   **Sandbox Integration (If Applicable):** If sandbox development was used and the task is complete:
-        *   **Code Merge:** Merge the confirmed code changes from the sandbox back to the main codebase.
-        *   **Validation:** Ensure the merged code maintains functionality in the main environment.
-        *   **Cleanup:** Clean up sandbox-specific artifacts that shouldn't persist in the main codebase.
-        *   **Documentation Update:** Update any documentation that references the sandbox workflow completion.
-        *   **Log Changes (Sandbox Mode):** When working in sandbox mode, log all code changes and integration steps in a dedicated sandbox log file (e.g., `.sandbox/dev-log/<yyyymmdd>-<feature-name>.md`). This log should include:
-            *   A summary of the changes made within the sandbox.
-            *   Any issues encountered and how they were resolved.
-            *   Steps taken during code merge and validation.
-            *   References to related documentation updates.
-            *   After merging, append a summary of the integration to the main development log at `./dev-log/<yyyymmdd>.md` for project-wide visibility.
-8.  **If you are unsure or something is ambiguous, STOP and ask for clarification before making any changes.**
 
 # **General Rules**
 - Never anticipate or perform actions from future steps, even if you believe it is more efficient.

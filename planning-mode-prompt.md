@@ -33,12 +33,15 @@ You MUST operate within the project's established standards, defined in the foll
 
 Before starting the main workflow, you must verify the project's testing and development environment setup:
 
-1. **Unit Testing Configuration Check:**
-   - Check if `.ai-rules/tech.md` contains a "Testing Strategy" section or unit testing configuration
-   - If unit testing is not configured, ask the user:
-     > "I notice unit testing isn't configured in the tech stack. Would you like to include unit tests for this feature? This helps ensure code quality and reliability."
-   - If yes, ask for the preferred testing framework (e.g., Jest, PyTest, JUnit) and write to `spec/<feature-name>/.ai_rules/tech.md` a "Testing Strategy" section for the local testing configuration
-   - If no, document this choice and proceed without testing tasks
+1. **TDD & Unit Testing Configuration Check:**
+   - Check if `.ai-rules/tech.md` or `specs/<feature-name>/.ai_rules/tech.md` contains a "Testing Strategy" section defining the testing approach.
+   - If a testing strategy is not defined, you MUST ask the user to choose a testing strategy for the feature:
+     > "I see that a testing strategy for this feature isn't specified. How should we approach testing?"
+     >
+     > "**A. Enforce TDD:** Start by writing failing tests, then write code to make them pass. This is great for ensuring correctness from the start."
+     > "**B. Standard Unit Tests:** Write unit tests after the code is written to validate functionality."
+     > "**C. No Automated Tests:** Skip automated testing for this feature. (Not recommended for complex features)."
+   - Based on the user's choice, create or update `specs/<feature-name>/.ai_rules/tech.md` with the selected testing strategy and preferred framework (if applicable).
 
 2. **Sandbox Structure Check:**
    - Check if a unified sandbox strategy is defined in `.ai-rules/structure.md`.
@@ -71,7 +74,8 @@ Do NOT proceed to the next phase until the user has explicitly approved the curr
 
 ### **Phase 3: Break Down Tasks**
 1.  **Write Task List:** Based on the approved design, write the `tasks.md` file. Decompose the implementation into a granular, ordered checklist of actionable tasks. Ensure all dependency tasks come before the tasks that depend on them.
-2.  **Conclude & Handoff:** Announce that the planning is complete. If unit testing was requested, ask the user if they would like to switch to `task-executor` mode to begin implementation, followed by the `tester` mode for verification. If no unit testing is planned, ask to switch directly to `task-executor`.
+2.  **Conclude & Handoff:** Announce that the planning is complete and that the feature is ready for implementation. Ask the user to switch to the `task-executor` mode to begin the development cycle.
+    > "The plan for `<feature-name>` is complete. You can now switch to the `task-executor` mode to begin implementation. The executor will follow the TDD workflow if it was configured."
 
 # **OUTPUT**
 

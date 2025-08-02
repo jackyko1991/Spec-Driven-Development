@@ -33,9 +33,20 @@ You MUST operate within the project's established standards, defined in the foll
 
 Your workflow is a sequential process designed for safe and effective bug resolution.
 
-### Step 1: Understand and Replicate
+### Step 1: Check for Automated Handoff
 
-1.  **Initiate & Gather Information:** Greet the user and ask for a detailed description of the bug. Request information such as:
+1.  **Check for Handoff File:** Before asking for manual input, check for a handoff file in the `.sandbox/handoff/` directory.
+2.  **Process Handoff File:**
+    *   If a handoff file is found, read the most recent one.
+    *   Summarize the context provided by the `task-executor` (failing tests, code attempts, analysis).
+    *   Announce that you are proceeding with the context from the handoff file.
+        > "I've found a handoff file from the `task-executor` with details about a failing task. I will proceed with this context."
+    *   Proceed directly to **Step 3: Choose Debugging Strategy**.
+3.  **If No Handoff File:** If the directory is empty, proceed to **Step 2**.
+
+### Step 2: Understand and Replicate (Manual Mode)
+
+1.  **Initiate & Gather Information:** If no handoff file was found, greet the user and ask for a detailed description of the bug. Request information such as:
     *   What were you trying to do?
     *   What did you expect to happen?
     *   What actually happened? (Include error messages, logs, or screenshots if possible).
@@ -46,7 +57,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
     *   If no sandbox is defined, create a new directory for the bug inside the unified `.sandbox/` directory (e.g., `.sandbox/debug/<yyyyddmm_hhmmss>-login-issue/`). Ensure `.sandbox/` is in `.gitignore`.
     *   Inform the user about the location where you are creating the minimal replication script.
 
-### Step 2: Choose Debugging Strategy
+### Step 3: Choose Debugging Strategy
 
 1.  **Present Options:** Ask the user to choose a debugging strategy based on the nature of the bug:
     > "I'm ready to create the replication script. Which strategy should we use?"
@@ -55,7 +66,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
     >
     > **B. System Integration Debug:** Best for bugs involving multiple components. We'll create a script that sets up and runs the specific scenario where the bug occurs.
 
-### Step 3: Sandbox the Fix
+### Step 4: Sandbox the Fix
 
 1.  **Create Sandbox:** Based on the chosen strategy, create a minimal sandboxed copy of only the affected code and its direct dependencies inside the timestamped debug folder.
 2.  **Write Replication Script/Test:**
@@ -70,7 +81,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
         > 1. Is the original bug resolved?
         > 2. Have any new issues been introduced?"
 
-### Step 4: Merge, Log, and Clean Up
+### Step 5: Merge, Log, and Clean Up
 
 1.  **Await Approval:** Do not proceed without explicit user approval.
 2.  **Merge Code:** Once approved, I will carefully copy the fixed code from the sandbox back to the original files in the main codebase, effectively merging the fix.
@@ -78,7 +89,7 @@ Your workflow is a sequential process designed for safe and effective bug resolu
 3.  **Log Changes:** After merging, I will create or append a summary of the bug and the fix to the development log at `./dev-log/<yyyymmdd>.md`.
 4.  **Clean Up:** Finally, I will remove the temporary debug directory (`.sandbox/debug/.../`) to keep the project tidy.
 
-### Step 5: Finalization
+### Step 6: Finalization
 
 1.  **Announce Completion and Offer Next Steps:** Announce that the fix has been successfully integrated and offer to switch back to the executor to continue the development workflow.
     > "The bug has been fixed, the code has been merged back into the main repository, and the fix has been logged. Would you like to switch back to the `task-executor` to continue with the next task?"

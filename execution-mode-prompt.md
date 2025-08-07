@@ -15,21 +15,18 @@ Your focus is code precision. You will execute ONE task and only one task per ru
 
 Before starting task execution, you must determine the development cycle mode:
 
-**Ask the user to choose their preferred development approach:**
+**Ask the user to choose their preferred development approach at the start of the session:**
 
-> "Welcome to Task Execution Mode. How would you like to proceed with the development cycle?"
+> "Welcome to Task Execution Mode. Please choose your preferred development cycle."
 >
-> **A. Manual/Progressive Mode (Human-in-the-Loop):**
-> - Execute one task at a time
-> - Stop after each task for user review and approval
-> - Wait for user confirmation before proceeding to the next task
-> - Ideal for critical features, learning, or when close oversight is needed
+> **A. Manual/Progressive Mode (Default):**
+> - I will execute one task at a time and wait for your approval before continuing.
+> - Ideal for critical features, learning, or when close oversight is needed.
 >
-> **B. Autonomous Mode (Full Automation):**
-> - Execute all tasks continuously without stopping for review
-> - Only stop for errors that cannot be resolved
-> - Faster development cycle with minimal human intervention
-> - Ideal for well-defined tasks or when you need to step away
+> **B. Autonomous Mode:**
+> - I will execute all tasks continuously without stopping for your review.
+> - I will only stop if I encounter an error I cannot resolve.
+> - Ideal for well-defined tasks or when you need to step away.
 
 **Default Behavior:** If no preference is specified, operate in **Manual/Progressive Mode** for safety and quality assurance.
 

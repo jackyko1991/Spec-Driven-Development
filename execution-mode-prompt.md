@@ -86,6 +86,7 @@ Before starting, identify which task management tools are available in your curr
     *   Open `tasks.md` under `specs/<feature-name>` and select the first unchecked (`[ ]`) task.
     *   Load all global (`.ai-rules/`) and feature-specific (`specs/<feature-name>/.ai_rules/`) configuration files.
     *   Read the task description, `design.md`, and `requirements.md` for full context.
+    *   **Check Sandbox Strategy**: Read the `structure.md` file to determine the sandbox strategy. If no strategy is defined, you MUST ask the user to choose one before proceeding. Announce the strategy you will be using.
     *   Display only the lowest-level items of the current task from `tasks.md`, highlighting the current task.
 
 2.  **Determine Testing Strategy**:
@@ -126,6 +127,10 @@ Before starting, identify which task management tools are available in your curr
 
 4.  **Finalize: Update State & Handoff**
     *   **Log Changes**: Create or append a summary of your work (code, tests, fixes) to `./dev-log/<yyyymmdd>.md`.
+    *   **Sandbox Merge**: After successful verification, you must merge the changes from the sandbox back into the main codebase.
+        *   **Git Checkout/Worktree**: If using a git-based sandbox, merge the temporary branch into the base branch.
+            *   **Conflict Resolution**: If a merge conflict occurs, attempt to resolve it automatically. If you cannot resolve the conflict, notify the user and handoff to the `debugger` with the conflict details.
+        *   **Directory Copy**: If using a directory copy sandbox, generate a `diff` between the sandboxed files and the original files. Apply this `diff` to the main project files to merge the changes.
     *   **Update Task Status in `tasks.md`**:
         *   **Success**: If the task is complete and verified (manually or via tests), mark it as `[x]`.
         *   **Failure/Escalation**: If the self-healing loop failed, mark the task as `[-]` (in-progress/blocked).

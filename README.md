@@ -57,11 +57,12 @@ graph LR
 
 To ensure a clean and isolated development environment, the Steering Architect establishes conventions for a unified sandbox—a temporary, isolated space for developing new features or fixing bugs without impacting the main codebase.
 
-All isolated work, whether for new features or bug fixes, takes place in the `.sandbox/` directory. The method for creating this sandbox can be configured:
+All isolated work, whether for new features or bug fixes, takes place in the `.sandbox/` directory or through a temporary Git branch. The method for creating this sandbox can be configured:
+-   **Git Checkout**: A lightweight approach that uses a temporary branch for isolated changes.
 -   **Directory Copy**: A minimal copy of only the necessary files for the task.
 -   **Git Worktree**: A more advanced approach where the sandbox is a linked Git worktree, ideal for seamless version control and parallel development.
 
-These choices are documented in `.ai-rules/structure.md`, and the corresponding folders are added to `.gitignore` to keep the main repository clean.
+These choices are documented in `.ai-rules/structure.md`. For a detailed explanation of each strategy, see the [**Sandbox Development Guide**](sandbox-development.md).
 
 ---
 

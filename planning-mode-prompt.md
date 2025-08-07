@@ -44,12 +44,13 @@ Before starting the main workflow, you must verify the project's testing and dev
    - Based on the user's choice, create or update `specs/<feature-name>/.ai_rules/tech.md` with the selected testing strategy and preferred framework (if applicable).
 
 2. **Sandbox Structure Check:**
-   - Check if a unified sandbox strategy is defined in `.ai-rules/structure.md`.
-   - If the sandbox strategy is not defined, ask the user to configure it for this feature:
-     > "It looks like a project-wide sandbox strategy hasn't been set. For this feature, let's define one. We'll use a unified `.sandbox/` directory for all isolated work. How should we manage it?"
+   - Check if a unified sandbox strategy is defined in `.ai-rules/structure.md` or `specs/<feature-name>/.ai_rules/structure.md`.
+   - If the sandbox strategy is not defined, you MUST ask the user to choose one for the feature:
+     > "I can't find a sandbox strategy for this feature. To keep our work isolated, let's define one. How should we manage the sandbox environment for this task?"
      >
-     > "**A. Directory Copy:** A simple approach where we create a minimal copy of only the necessary files."
-     > "**B. Git Worktree:** A more advanced method for parallel development."
+     > "**A. Git Checkout:** A lightweight approach that uses a temporary branch for isolated changes."
+     > "**B. Directory Copy:** A simple approach where we create a minimal copy of only the necessary files."
+     > "**C. Git Worktree:** A more advanced method for parallel development."
    - Document the chosen strategy in `specs/<feature-name>/.ai_rules/structure.md` as a feature-specific configuration.
    - Ensure the `.sandbox/` directory is added to `.gitignore` if not already present.
 

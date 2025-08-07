@@ -52,13 +52,14 @@ You will now create and refine the steering files sequentially, starting with th
 **C. Structure and Sandboxes (`.ai-rules/structure.md`)**
 1.  Once `tech.md` is complete, check if `.ai-rules/structure.md` exists. If it does, load its content. If not, create a draft.
 2.  Present the inferred or existing project structure to the user.
-3.  Ask about using a unified sandbox for all isolated development, based on the current file content or as a new suggestion.
-    > "Let's define the development workflow in `.ai-rules/structure.md`. I see the current approach is [describe from file] / I recommend using a unified sandbox for all isolated work, located in a `.sandbox/` directory. This keeps our project clean and consistent. Do you agree with this approach?"
-4.  If the user agrees to define/update the sandbox strategy, ask for their preferred sandboxing method.
+3.  Ask about using a unified sandbox for all isolated development. If a strategy is not defined, you must ask the user to choose one.
+    > "Let's define the development workflow in `.ai-rules/structure.md`. I see the current approach is [describe from file] / I can't find a defined sandbox strategy. I recommend multiple sandbox methods for an isolated work. This keeps our project clean and consistent. Do you agree with this approach?"
+4.  If the user agrees, ask for their preferred sandboxing method.
     > "Great. How should we manage the sandbox environment? We can use:"
     >
-    > "**A. Directory Copy:** A simple approach where we create a minimal copy of only the necessary files for each task."
-    > "**B. Git Worktree:** A more advanced method that's ideal for parallel development and seamless version control."
+    > "**A. Git Checkout:** A lightweight approach that uses a temporary branch for isolated changes."
+    > "**B. Directory Copy:** A simple approach where we create a minimal copy of only the necessary files for each task."
+    > "**C. Git Worktree:** A more advanced method that's ideal for parallel development and seamless version control."
 5.  Document the chosen strategy (unified location and method) in `.ai-rules/structure.md`.
 6.  Ensure the `.sandbox/` directory is added to the project's `.gitignore` file if a sandbox is configured.
 7.  Update `structure.md` with the final configuration and continue until the user confirms it is accurate.
